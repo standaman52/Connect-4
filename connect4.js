@@ -1,42 +1,24 @@
 $(function(){
+  //create div container
+  $wrapper = $("<div>").addClass("wrapper");
+  $("body").append($wrapper);
 
-  //grabs the board element
-  $board = $("#board")
-  //apends the board to the
-  $("body").append($board);
-  //main board
-  $mainBoard = $("#mainBoard");
-  //counts the number of clicks
-  var count = 1;
+  //create a board wrapper
+  $board_wrapper = $("<div>").addClass("board_wrapper");
+  $wrapper.append($board_wrapper);
 
-
-//creates a the cirlce divs
-  var generateCirlce = function(){
-   //counts the number of clicks
-    count++;
-    //Ensures that the button clicked is either a red or yellow button
-    if(count % 2 === 0){
-      $(this).addClass("discRed").off("click")
-    }
-    else {
-      $(this).addClass("discYellow").off("click")
-    }
+  //create a row wrapper
+  for (var i = 1; i < 8; i++) {
+    $row_wrapper = $("<div>").addClass("row_wrapper").attr("id", "row"+i);
+    $board_wrapper.append($row_wrapper
+    )
   }
-//creates the triangle div
-var generateTriangle = function(){
-  $triangle = $("<div>").addClass("arrow-down");
-  $('body').prepend($triangle)
-
-}
-
-
-
-  //creates the board template
-  for (var i = 1; i < 50; i++) {
-    $circleBox = $("<div>").addClass("circle").attr("id", "square"+i);
-    //apends the divs to the boards.
-    $board.append($circleBox);
-    $circleBox.on("click",generateCirlce);
-    $circleBox.on("mouseover", generateTriangle);
+  //creates row of chips
+  for (var i = 0; i < 6; i++) {
+    $chip_holder = $("<div>").addClass("chip_holder");
+    $(".row_wrapper").append($chip_holder);
   }
+  
+
+
 })
