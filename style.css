@@ -3,13 +3,13 @@ body{
   padding: 0;
   background-color:grey;
 }
-.wrapper{
+#wrapper{
   margin:8px auto 6px;
   width: 732px;
   position: relative;
   /*border: 2px solid black;*/
 }
-.board_wrapper{
+#board_wrapper{
   height: 624px;
   /*border: 2px solid black;*/
 }
@@ -23,8 +23,4 @@ div .row_wrapper div{
   border: 2px solid black;
   float: left;
   background-color: white;
-}
-.canvas{
-   border-radius: 50%;
-   color:red;
 }

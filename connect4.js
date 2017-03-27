@@ -1,24 +1,38 @@
 $(function(){
-  //create div container
-  $wrapper = $("<div>").addClass("wrapper");
-  $("body").append($wrapper);
 
-  //create a board wrapper
-  $board_wrapper = $("<div>").addClass("board_wrapper");
-  $wrapper.append($board_wrapper);
+$canvas = $("canvas")
+red = 'rgb(225,0,0)';
+black = 'rgb(0,0,0)';
+var count = 1;
 
-  //create a row wrapper
-  for (var i = 1; i < 8; i++) {
-    $row_wrapper = $("<div>").addClass("row_wrapper").attr("id", "row"+i);
-    $board_wrapper.append($row_wrapper
-    )
+
+var createCircle = function(color){
+index = $canvas_number;
+circle = $canvas[index].getContext('2d');
+circle.beginPath();
+circle.arc(50, 50, 50, 0, 2 * Math.PI, false);
+circle.fillStyle = color;
+circle.fill();
+}
+
+
+var placeChip = function(){
+
+
+  $canvas_clicked =$(this).attr('id');
+  console.log($canvas_clicked);
+  $canvas_number = $canvas_clicked - 1;
+  $canvas_above_id = $(this).attr('id') - 7;
+  canvas_above = $(this).parent().parent().prev().find('#' + $canvas_above_id);
+
+  if ($canvas_clicked >= 43 || $(this).hasClass('can_place')){
+    $(this).attr('class', 'has_chip');
+    canvas_above.attr('class', 'can_place');
+    createCircle(red)
   }
-  //creates row of chips
-  for (var i = 0; i < 6; i++) {
-    $chip_holder = $("<div>").addClass("chip_holder");
-    $(".row_wrapper").append($chip_holder);
-  }
-  
 
+
+  }
+$("canvas").on("click", placeChip)
 
 })
