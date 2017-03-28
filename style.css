@@ -1,27 +1,23 @@
+
 body{
   margin:0;
   padding: 0;
-  background-color:grey;
+  background-color:#72587F;
 }
 #wrapper{
-  margin:8px auto 6px;
+  margin: 9% auto 12% auto;
   width: 732px;
   position: relative;
-  cursor: pointer;
-  /*border: 2px solid black;*/
 }
-#board_wrapper{
-  height: 624px;
-  /*border: 2px solid black;*/
-}
+
 div .row_wrapper{
   height: 104px;
 
 }
 div .row_wrapper div{
-  width: 100px;
-  height: 100px;
-  border: 2px solid black;
+
+  border: 2px solid grey;
+  border-radius: 50%;
   float: left;
   background-color: white;
 }
