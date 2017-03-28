@@ -198,3 +198,16 @@ div .row_wrapper div{
   float: right;
   background-color: white;
 }
+
+
+
+
+        // for (var i = 1; i <= 4; i++) {
+        //   var id = parseInt($canvas_clicked) + i;
+        //
+        //   var find = redArray.find(id)
+        //   console.log(find);
+        //   if(find === false){
+        //     break;
+        //   }
+        // }

@@ -1,13 +1,12 @@
 
 body{
-  margin:0;
-  padding: 0;
-  background-color:#72587F;
+  background-color:#33C1FF;
 }
 #wrapper{
   margin: 9% auto 12% auto;
   width: 732px;
   position: relative;
+  border: 2px solid grey;
 }
 
 div .row_wrapper{
@@ -15,7 +14,7 @@ div .row_wrapper{
 
 }
 div .row_wrapper div{
-
+   cursor: pointer;
   border: 2px solid grey;
   border-radius: 50%;
   float: left;
