@@ -2,15 +2,17 @@
 body{
   background-color:#33C1FF;
 }
-#wrapper{
-  margin: 9% auto 12% auto;
-  width: 732px;
+
+/*#wrapper{
+  margin: 4% auto 12% auto;
+  width: 378px;
+  height: 378px;
   position: relative;
-  border: 2px solid grey;
-}
+
+}*/
 
 div .row_wrapper{
-  height: 104px;
+  height: 54px;
 
 }
 div .row_wrapper div{
@@ -19,4 +21,57 @@ div .row_wrapper div{
   border-radius: 50%;
   float: left;
   background-color: white;
+}
+#board_wrapper{
+  margin: 8% auto 12% auto;
+  width: 378px;
+  height: 378px;
+  position: relative;
+}
+#displayResult{
+  text-align: center;
+  font-size: 40px;
+  font-family: CAC Champagne;
+  font-weight: bold;
+
+}
+#mainScoreBoard{
+  width: 100%;
+  height: 60%;
+  /*border: 1px solid black;*/
+  margin: 0 auto 0 auto;
+
+
+}
+.player{
+  width: 20%;
+  height: 25%;
+  /*border: 1px solid black;*/
+  display: inline-block;
+  padding: 5%;
+  margin: 9%;
+
+
+}
+p{
+  text-align: center;
+    /*border: 1px solid black;*/
+font-size: 25px;
+}
+#player1{
+    text-align: center;
+    color: red;
+}
+#player2{
+    text-align: center;
+    color: yellow;
+}
+
+
+
+#player1 p {
+  color: red;
+}
+#player2 p {
+  color: yellow;
 }

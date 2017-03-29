@@ -1,14 +1,15 @@
 $(function(){
 
-  $canvas = $("canvas")
+  $canvas = $("canvas");
   red = '#FF5533';
   blue = '#D4FF33';
   var count = 0;
   toggle = false;
   var  redArray =[];
   var blueArray = [];
-  var winCases = [  // this object contains a list of all winning
-    // by row
+  var p1Score = 0;
+  var p2Score = 0;
+  var winCases = [
     ['1', '2', '3', '4'],
     ['2', '3', '4', '5'],
     ['8', '9', '10', '11'],
@@ -33,7 +34,6 @@ $(function(){
     ['32', '33', '34', '35'],
     ['38', '39', '40', '41'],
     ['39', '40', '41', '42'],
-    // columns
     ['1', '8', '15', '22'],
     ['2', '9', '16', '23'],
     ['3', '10', '17', '24'],
@@ -55,7 +55,6 @@ $(function(){
     ['19', '26', '33', '40'],
     ['20', '27', '34', '41'],
     ['21', '28', '35', '42'],
-    //left-diagonal
     ['1', '9', '17', '25'],
     ['2', '10', '18', '26'],
     ['3', '11', '19', '27'],
@@ -68,7 +67,6 @@ $(function(){
     ['16', '24', '32', '40'],
     ['17', '25', '33', '41'],
     ['18', '26', '34', '42'],
-    // right-diagonal
     ['7', '13', '19', '25'],
     ['6', '12', '18', '24'],
     ['5', '11', '17', '23'],
@@ -87,10 +85,28 @@ $(function(){
     index = $canvas_number;
     circle = $canvas[index].getContext('2d');
     circle.beginPath();
-    circle.arc(50, 50, 50, 0, 2 * Math.PI, false);
+    circle.arc(25, 25, 25, 0, 2 * Math.PI, false);
     circle.fillStyle = color;
     circle.fill();
+  };
+  var resetGame = function(){
+    $canvas.text("");
+
   }
+
+  var player1ScoreBoard = function(score){
+    if (score) {
+      $score = $('#p1').text(score);
+      $score = score;
+    }
+  };
+
+  var player2ScoreBoard = function(score){
+    if (score) {
+      $score  =  $('#p2').text(score);
+      $score = score;
+    }
+  };
 
   var checkWin = function(array){
     for (var i = 0; i < winCases.length; i++) {
@@ -100,25 +116,21 @@ $(function(){
           if(  winCases[i][j] === array[m]   )
           {
             fourInArow++;
-            console.log(winCases[i][j] +" WINCASES");
-            console.log(array[m]);
-            console.log("------------------------");
           }
         }
         if(fourInArow == 4 ){
-          console.log("u win");
-          return;
+          return true;
         }
       }
     }
-  }
+  };
 
   var placeChip = function(){
     $canvas_clicked =$(this).attr('id');
     $canvas_number = $canvas_clicked - 1;
     $canvas_above_id = $(this).attr('id') - 7;
     canvas_above = $(this).parent().parent().prev().find('#' + $canvas_above_id);
-    if(toggle == false){
+    if(toggle === false){
       if ($canvas_clicked >= 36 || $(this).hasClass('can_place')){
         $(this).attr('class', 'has_chip');
         canvas_above.attr('class', 'can_place');
@@ -126,9 +138,19 @@ $(function(){
         $(this).off();
         toggle = true;
         redArray.push($canvas_clicked);
-        console.log($canvas_clicked);
-        console.log(redArray);
-        checkWin(redArray);
+        if (redArray){
+          var result =  checkWin(redArray);
+        }
+        if(result === true){
+          $displayResult = $("<p>").attr("id", "displayResult");
+          $displayResult.text("Red Wins").css("color","red");
+          $('#board_wrapper').prepend($displayResult);
+          p1Score++;
+          player1ScoreBoard(p1Score);
+          resetGame();
+
+        }
+
       }
     }
     else{
@@ -136,14 +158,27 @@ $(function(){
         $(this).attr('class', 'has_chip');
         canvas_above.attr('class', 'can_place');
         createCircle(blue);
-        $(this).off()
+        $(this).off();
         toggle = false;
         blueArray.push($canvas_clicked);
-        console.log(blueArray);
-        checkWin(blueArray);
+        if (blueArray){
+          var result =checkWin(blueArray);
+        }
+        if(result === true){
+          $displayResult = $("<p>").attr("id", "displayResult");
+          $displayResult.text("Yellow Wins").css("color","yellow");
+          $('#board_wrapper').prepend($displayResult);
+          displayResult.text("");
+          p2Score++;
+          player2ScoreBoard(p2Score);
+
+          resetGame();
+
+        }
+
       }
     }
-  }
-  $("canvas").on("click", placeChip)
+  };
+  $("canvas").on("click", placeChip);
 
-})
+});
