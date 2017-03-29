@@ -32,11 +32,57 @@ $(function(){
     ['31', '32', '33', '34'],
     ['32', '33', '34', '35'],
     ['38', '39', '40', '41'],
-    ['39', '40', '41', '42']
+    ['39', '40', '41', '42'],
+    // columns
+    ['1', '8', '15', '22'],
+    ['2', '9', '16', '23'],
+    ['3', '10', '17', '24'],
+    ['4', '11', '18', '25'],
+    ['5', '12', '19', '26'],
+    ['6', '13', '20', '27'],
+    ['7', '14', '21', '28'],
+    ['8', '15', '22', '29'],
+    ['9', '16', '23', '30'],
+    ['10', '17', '24', '31'],
+    ['11', '18', '25', '32'],
+    ['12', '19', '26', '33'],
+    ['13', '20', '27', '24'],
+    ['14', '21', '28', '35'],
+    ['15', '22', '29', '36'],
+    ['16', '23', '30', '37'],
+    ['17', '24', '31', '38'],
+    ['18', '25', '32', '39'],
+    ['19', '26', '33', '40'],
+    ['20', '27', '34', '41'],
+    ['21', '28', '35', '42'],
+    //left-diagonal
+    ['1', '9', '17', '25'],
+    ['2', '10', '18', '26'],
+    ['3', '11', '19', '27'],
+    ['4', '12', '20', '28'],
+    ['8', '16', '24', '32'],
+    ['9', '17', '25', '33'],
+    ['10', '18', '26', '34'],
+    ['11', '19', '27', '35'],
+    ['15', '23', '31', '39'],
+    ['16', '24', '32', '40'],
+    ['17', '25', '33', '41'],
+    ['18', '26', '34', '42'],
+    // right-diagonal
+    ['7', '13', '19', '25'],
+    ['6', '12', '18', '24'],
+    ['5', '11', '17', '23'],
+    ['4', '10', '16', '24'],
+    ['14', '20', '26', '32'],
+    ['13', '19', '25', '31'],
+    ['12', '18', '24', '30'],
+    ['11', '17', '23', '29'],
+    ['21', '27', '33', '39'],
+    ['20', '26', '32', '38'],
+    ['19', '25', '31', '37'],
+    ['18', '24', '30', '36']
 
   ];
-
-
   var createCircle = function(color){
     index = $canvas_number;
     circle = $canvas[index].getContext('2d');
@@ -46,39 +92,26 @@ $(function(){
     circle.fill();
   }
 
-
-
-
-
   var checkWin = function(array){
-
     for (var i = 0; i < winCases.length; i++) {
-        var fourInArow = 0;
+      var fourInArow = 0;
       for (var j = 0; j < winCases[i].length; j++) {
         for (var m = 0; m < array.length; m++) {
           if(  winCases[i][j] === array[m]   )
           {
-                    fourInArow++;
+            fourInArow++;
             console.log(winCases[i][j] +" WINCASES");
             console.log(array[m]);
             console.log("------------------------");
-
-
           }
-
         }
         if(fourInArow == 4 ){
           console.log("u win");
           return;
         }
-
-
       }
     }
-
   }
-
-
 
   var placeChip = function(){
     $canvas_clicked =$(this).attr('id');
@@ -94,14 +127,8 @@ $(function(){
         toggle = true;
         redArray.push($canvas_clicked);
         console.log($canvas_clicked);
-        // redArray.sort()
         console.log(redArray);
-        count++;
-       if (count >6) {
-             checkWin(redArray);
-       }
-
-
+        checkWin(redArray);
       }
     }
     else{
@@ -112,18 +139,10 @@ $(function(){
         $(this).off()
         toggle = false;
         blueArray.push($canvas_clicked);
-        // blueArray.sort()
         console.log(blueArray);
-        count++;
-       if (count >6) {
-             checkWin(blueArray);
-       }
-
-
-
+        checkWin(blueArray);
       }
     }
-
   }
   $("canvas").on("click", placeChip)
 

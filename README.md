@@ -211,3 +211,20 @@ div .row_wrapper div{
         //     break;
         //   }
         // }
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"
+        type="text/javascript"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js" type="text/javascript">
+        </script>
+
+        <div id="dropspots" class="row_wrapper">
+          <div id="1_chip"class=""></div>
+          <div id="1_chip"class=""></div>
+          <div id="1_chip"class=""></div>
+          <div id="1_chip"class=""></div>
+          <div id="1_chip"class=""></div>
+          <div id="1_chip"class=""></div>
+          <div id="1_chip"class=""></div>
+
+        </div>
