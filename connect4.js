@@ -71,10 +71,6 @@ $(function(){
   ];
 
 
-
-
-
-
   var createCircle = function(color){
     index = $canvas_number;
     circle = $canvas[index].getContext('2d');
@@ -83,7 +79,11 @@ $(function(){
     circle.fillStyle = color;
     circle.fill();
   }
-  var fourInArow = 0;
+
+
+
+
+    var fourInArow = 0;
   var checkWin = function(){
     for (var i = 0; i < winCases.length; i++) {
       for (var j = 0; j < winCases[i].length; j++) {
@@ -93,15 +93,15 @@ $(function(){
 
             console.log(winCases[i][j] +"WINCASES");
             console.log(redArray[m]);
-              console.log("------------------------");
-                  fourInArow++;
+            console.log("------------------------");
+
 
           }
 
         }
-        if(fourInArow > 5 ){
-            console.log("u win");
-            return;
+        if(count > 5 ){
+          console.log("u win");
+          return;
         }
 
 
@@ -125,12 +125,11 @@ $(function(){
         $(this).off();
         toggle = true;
         redArray.push($canvas_clicked);
-      //  console.log(redArray);
-    count +=1;
-
-       if(count > 5){
-       checkWin()
-         }
+        redArray.sort()
+        console.log(redArray);
+        count++;
+          if(count > 3 )
+         checkWin();
       }
     }
     else{
@@ -141,11 +140,11 @@ $(function(){
         $(this).off()
         toggle = false;
         blueArray.push($canvas_clicked);
-        count +=1;
-        // if(count == 7){
-        //   checkWin(blueArray)
-        // }
-        // console.log(blueArray);
+        blueArray.sort()
+        console.log(blueArray);
+
+
+        // checkWin();
       }
     }
 
