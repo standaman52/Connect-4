@@ -9,6 +9,8 @@ $(function(){
   var blueArray = [];
   var p1Score = 0;
   var p2Score = 0;
+  var index = null;
+  var $canvas_clicked;
   var winCases = [
     ['1', '2', '3', '4'],
     ['2', '3', '4', '5'],
@@ -81,18 +83,24 @@ $(function(){
     ['18', '24', '30', '36']
 
   ];
-  var createCircle = function(color){
+  var createCircle = function(color, radius ,index ){
+    radius = (typeof radius !== 'undefined') ? radius: 25;
     index = $canvas_number;
     circle = $canvas[index].getContext('2d');
     circle.beginPath();
-    circle.arc(25, 25, 25, 0, 2 * Math.PI, false);
-    circle.fillStyle = color;
+    circle.arc(25, 25, radius, 0, 2 * Math.PI, false);
+    circle.fillStyle =  color;
     circle.fill();
   };
-  var resetGame = function(){
-    $canvas.text("");
 
-  }
+  var resetGame = function(){
+
+   $('.has_chip').visibility = "hidden";
+
+
+ };
+
+
 
   var player1ScoreBoard = function(score){
     if (score) {
@@ -171,7 +179,6 @@ $(function(){
           displayResult.text("");
           p2Score++;
           player2ScoreBoard(p2Score);
-
           resetGame();
 
         }
