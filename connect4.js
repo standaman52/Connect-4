@@ -1,16 +1,19 @@
 $(function(){
-
+//declaring global variables
   $canvas = $("canvas");
   red = '#FF5533';
   blue = '#D4FF33';
+  white = "#FFFFFF ";
   var count = 0;
-  toggle = false;
+//declaring empty array
   var  redArray =[];
   var blueArray = [];
   var p1Score = 0;
   var p2Score = 0;
   var index = null;
   var $canvas_clicked;
+  var  toggle = false;
+//An array of all the possible win casses
   var winCases = [
     ['1', '2', '3', '4'],
     ['2', '3', '4', '5'],
@@ -83,39 +86,49 @@ $(function(){
     ['18', '24', '30', '36']
 
   ];
+  //A function that create a circle using a canvas html element
+  //takes three paramater which will be passed later in another function
   var createCircle = function(color, radius ,index ){
+    //Sets default 25 else undefined else
     radius = (typeof radius !== 'undefined') ? radius: 25;
-    index = $canvas_number;
+    index = typeof index !== 'undefined' ? index: $canvas_number;
     circle = $canvas[index].getContext('2d');
+    //got this from w3school
     circle.beginPath();
     circle.arc(25, 25, radius, 0, 2 * Math.PI, false);
     circle.fillStyle =  color;
     circle.fill();
   };
+ //This resets the board after the first round of play.
+  var resetBoard = function(){
+    var radius = 25.1;
+    for (var i = 0; i < $canvas.length; i++) {
+      createCircle(white, radius, i);
+    }
+    // $canvas.removeClass('has_chip');
+    //This calls the play function after the board is reset
+    $("canvas").on("click", placeChip);
 
-  var resetGame = function(){
+  };
 
-   $('.has_chip').visibility = "hidden";
-
-
- };
-
-
-
+//This tracks the score of player 1 by using a incrementer
   var player1ScoreBoard = function(score){
     if (score) {
       $score = $('#p1').text(score);
       $score = score;
     }
   };
-
+//This tracks the score of player 1 by using a incrementer
   var player2ScoreBoard = function(score){
     if (score) {
       $score  =  $('#p2').text(score);
       $score = score;
     }
   };
-
+//This checks for all the posible wins. using three for loops.
+//The first two 'for loops' check for the element in the individual
+//array and the third 'for loop' checks for the arrays that are pushed into
+//their respective array
   var checkWin = function(array){
     for (var i = 0; i < winCases.length; i++) {
       var fourInArow = 0;
@@ -123,45 +136,64 @@ $(function(){
         for (var m = 0; m < array.length; m++) {
           if(  winCases[i][j] === array[m]   )
           {
+
             fourInArow++;
           }
         }
-        if(fourInArow == 4 ){
+        //This checks the array if there are four numbers
+        //and returns a true statement
+        if(fourInArow === 4 ){
           return true;
         }
       }
     }
   };
-
+//This functions places the created chip onto the board.
   var placeChip = function(){
+    //Saves the chipId into a variable
     $canvas_clicked =$(this).attr('id');
+     //This substracts one since canvas element start from 0
     $canvas_number = $canvas_clicked - 1;
+    //this subracts 7 to get the canvas above id
     $canvas_above_id = $(this).attr('id') - 7;
     canvas_above = $(this).parent().parent().prev().find('#' + $canvas_above_id);
+
     if(toggle === false){
-      if ($canvas_clicked >= 36 || $(this).hasClass('can_place')){
+   //ensures that the div clicked is greater than 36
+      if ($canvas_clicked >= 36 ||$(this).hasClass('can_place')){
         $(this).attr('class', 'has_chip');
+        //places a class after the canvas is clicked
         canvas_above.attr('class', 'can_place');
+        //creates a circle by passing a paramater of the color
         createCircle(red);
+          //ensures that the color dosen't change after a user clicks
         $(this).off();
+        //resets toggle to true for the other color to display
         toggle = true;
+        //pushes the element to the red array
         redArray.push($canvas_clicked);
+        console.log(redArray);
         if (redArray){
           var result =  checkWin(redArray);
         }
+        //
         if(result === true){
           $displayResult = $("<p>").attr("id", "displayResult");
           $displayResult.text("Red Wins").css("color","red");
           $('#board_wrapper').prepend($displayResult);
           p1Score++;
           player1ScoreBoard(p1Score);
-          resetGame();
+          //resetBoard();
+
 
         }
 
       }
+
+
     }
     else{
+      //enurses that the yellow chip is placed after cell 35
       if ($canvas_clicked >= 36 || $(this).hasClass('can_place')){
         $(this).attr('class', 'has_chip');
         canvas_above.attr('class', 'can_place');
@@ -169,6 +201,7 @@ $(function(){
         $(this).off();
         toggle = false;
         blueArray.push($canvas_clicked);
+        console.log(blueArray);
         if (blueArray){
           var result =checkWin(blueArray);
         }
@@ -176,10 +209,8 @@ $(function(){
           $displayResult = $("<p>").attr("id", "displayResult");
           $displayResult.text("Yellow Wins").css("color","yellow");
           $('#board_wrapper').prepend($displayResult);
-          displayResult.text("");
           p2Score++;
           player2ScoreBoard(p2Score);
-          resetGame();
 
         }
 
@@ -188,4 +219,20 @@ $(function(){
   };
   $("canvas").on("click", placeChip);
 
+  $('.myButton').on("click", function(){
+//empties the array
+    redArray = [];
+    blueArray = [];
+    console.log(blueArray);
+//calls the reset function
+    resetBoard();
+    sessionStorage.setItem('key', '');
+    var data = sessionStorage.getItem('key');
+    $('.player').append(data);
+
+  });
+//refreshes the page
+  $('.myButton1').on("click", function(){
+    location.reload();
+  });
 });
